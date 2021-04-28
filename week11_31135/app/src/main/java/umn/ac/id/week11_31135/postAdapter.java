@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class postAdapter extends RecyclerView.Adapter<postAdapter.PostViewHolder> {
+public class postAdapter extends RecyclerView.Adapter<postAdapter.postViewHolder> {
 
     ArrayList<retrofitModel> posts;
 
@@ -18,14 +18,14 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.PostViewHolder
 
     @NonNull
     @Override
-    public PostViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public postViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
 
-        return new PostViewHolder(view);
+        return new postViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull PostViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull postViewHolder holder, int position) {
         holder.tvTitle.setText(posts.get(position).getTitle());
         holder.tvBody.setText(posts.get(position).getBody());
     }
@@ -35,10 +35,10 @@ public class postAdapter extends RecyclerView.Adapter<postAdapter.PostViewHolder
         return posts.size();
     }
 
-    public class PostViewHolder extends RecyclerView.ViewHolder {
+    public class postViewHolder extends RecyclerView.ViewHolder {
         TextView tvTitle, tvBody;
 
-        public PostViewHolder(@NonNull View itemView){
+        public postViewHolder(@NonNull View itemView){
             super(itemView);
 
             tvBody = itemView.findViewById(R.id.tvBody);

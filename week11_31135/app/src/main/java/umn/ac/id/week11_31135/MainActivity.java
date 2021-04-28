@@ -8,14 +8,10 @@ import android.os.Bundle;
 import android.telecom.Call;
 import android.widget.Toast;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-
 import javax.security.auth.callback.Callback;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
+
 
 public class MainActivity extends AppCompatActivity {
 
@@ -34,13 +30,13 @@ public class MainActivity extends AppCompatActivity {
         rvPostList = findViewById(R.id.rvPostList);
         rvPostList.setLayoutManager(new LinearLayoutManager(this));
 
-        netInterface = configRetro.getClient().create(netInterface.class);
+        netInterface = configRetrofit.getClient().create(netInterface.class);
 
         Call<ArrayList<retrofitModel>> postModelCall = netInterface.getPosts();
 
         postModelCall.enqueue(new Callback<ArrayList<retrofitModel>>(){
             @Override
-            public void onResponse(Call<ArrayList<retrofitModel>> call, Response<ArrayList<retrofitModel>> response){
+            public <response> void onResponse(Call<ArrayList<retrofitModel>> call, response<ArrayList<retrofitModel>> response){
                 posts = response.body();
 
                 adapter = new postAdapter(posts);
