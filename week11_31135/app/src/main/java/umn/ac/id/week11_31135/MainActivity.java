@@ -1,16 +1,21 @@
 package umn.ac.id.week11_31135;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.telecom.Call;
+import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import javax.security.auth.callback.Callback;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.util.ArrayList;
+
+import retrofit2.Callback;
+import retrofit2.Response;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -34,18 +39,29 @@ public class MainActivity extends AppCompatActivity {
 
         Call<ArrayList<retrofitModel>> postModelCall = netInterface.getPosts();
 
-        postModelCall.enqueue(new Callback<ArrayList<retrofitModel>>(){
+        // Asynchronously load data.
+        dataCall.enqueue(new Callback<ArrayList<Data>>() {
             @Override
-            public <response> void onResponse(Call<ArrayList<retrofitModel>> call, response<ArrayList<retrofitModel>> response){
-                posts = response.body();
+            public void onResponse(@NonNull retrofit2.Call<ArrayList<Data>> call, @NonNull Response<ArrayList<Data>> response) {
+                progressBar.setVisibility(View.GONE);
+                progressText.setVisibility(View.GONE);
+                recyclerView.setVisibility(View.VISIBLE);
 
-                adapter = new postAdapter(posts);
-                rvPostList.setAdapter(adapter);
+                if (response.isSuccessful()) {
+                    ArrayList<Data> data = response.body();
+                    recyclerView.setAdapter(new DataAdapter(data));
+                    Snackbar.make(mainLayout, getString(R.string.sukses), Snackbar.LENGTH_LONG).show();
+                } else {
+                    Snackbar.make(mainLayout, getString(R.string.fail), Snackbar.LENGTH_LONG).show();
+                }
             }
 
             @Override
-            public void onFailure(Call<ArrayList<retrofitModel>> call, Throwable t){
-                Toast.makeText(MainActivity.this, "Internet not available", Toast.LENGTH_LONG).show();
+            public void onFailure(@NonNull retrofit2.Call<ArrayList<Data>> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                progressText.setVisibility(View.GONE);
+
+                Snackbar.make(mainLayout, getString(R.string.error), Snackbar.LENGTH_LONG).show();
             }
         });
     }
