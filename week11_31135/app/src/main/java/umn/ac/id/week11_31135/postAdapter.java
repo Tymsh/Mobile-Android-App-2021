@@ -12,39 +12,45 @@ import java.util.ArrayList;
 
 public class postAdapter extends RecyclerView.Adapter<postAdapter.postViewHolder> {
 
-    ArrayList<retrofitModel> posts;
+    private final ArrayList<data> data;
+    public DataAdapter(ArrayList<data> data) {
+            this.data = data;
+        }
 
-    public postAdapter(ArrayList<retrofitModel> posts){ this.posts = posts; }
+        @NonNull
+        @Override
+        public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item, parent, false);
 
-    @NonNull
-    @Override
-    public postViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_layout, parent, false);
+            return new ViewHolder(view);
+        }
 
-        return new postViewHolder(view);
-    }
+        @Override
+        public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+            String textUid = "UID: " + data.get(position).getUserId();
+            String textId = "ID: " + data.get(position).getId();
 
-    @Override
-    public void onBindViewHolder(@NonNull postViewHolder holder, int position) {
-        holder.tvTitle.setText(posts.get(position).getTitle());
-        holder.tvBody.setText(posts.get(position).getBody());
-    }
+            holder.tvTitle.setText(data.get(position).getTitle());
+            holder.tvBody.setText(data.get(position).getBody());
+            holder.tvUid.setText(textUid);
+            holder.tvId.setText(textId);
+        }
 
-    @Override
-    public int getItemCount() {
-        return posts.size();
-    }
+        @Override
+        public int getItemCount() {
+            return data.size();
+        }
 
-    public class postViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTitle, tvBody;
+        public static class ViewHolder extends RecyclerView.ViewHolder {
+            private final TextView tvTitle, tvBody, tvUid, tvId;
 
-        public postViewHolder(@NonNull View itemView){
-            super(itemView);
+            public ViewHolder(View view) {
+                super(view);
 
-            tvBody = itemView.findViewById(R.id.tvBody);
-            tvTitle = itemView.findViewById(R.id.tvTitle);
-            tvUid = view.findViewById(R.id.textViewUid);
-            tvId = view.findViewById(R.id.textViewId);
+                tvTitle = view.findViewById(R.id.textViewTitle);
+                tvBody = view.findViewById(R.id.textViewBody);
+                tvUid = view.findViewById(R.id.textViewUid);
+                tvId = view.findViewById(R.id.textViewId);
+            }
         }
     }
-}
