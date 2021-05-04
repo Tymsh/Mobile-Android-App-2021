@@ -9,5 +9,5 @@ import retrofit2.http.GET;
 public interface netInterface {
 
     @GET("posts")
-    Call<ArrayList<retrofitModel>> getPosts();
+    Call<ArrayList<data>> getPosts();
 }

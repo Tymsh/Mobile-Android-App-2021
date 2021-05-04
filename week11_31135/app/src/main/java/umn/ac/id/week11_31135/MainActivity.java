@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         netInterface service = retrofit.create(netInterface.class);
 
         // Call data.
-        Call<ArrayList<data>> dataCall = service.getAllData();
+        Call<ArrayList<data>> dataCall = service.getPosts();
 
         // Asynchronously load data.
         dataCall.enqueue(new Callback<ArrayList<data>>() {
