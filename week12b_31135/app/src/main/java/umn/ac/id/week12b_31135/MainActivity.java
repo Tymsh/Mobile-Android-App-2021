@@ -14,19 +14,19 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
     private Sensor sensorLight;
     private Sensor sensorProximity;
     private SensorManager mSensorManager;
-   /* @Override
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         tvLight = findViewById(R.id.lightSensor);
         tvProximity = findViewById(R.id.proximitySensor);
-        mSensorManager = (SensorManager)
+       /* mSensorManager = (SensorManager)
                 getSystemService(Context.SENSOR_SERVICE);
         sensorProximity =
                 mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        sensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
+        sensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);  */
     }
-    @Override
+   /* @Override
     public void onSensorChanged(SensorEvent event) {
         int sensorType = event.sensor.getType();
         float currentValue = event.values[0];
