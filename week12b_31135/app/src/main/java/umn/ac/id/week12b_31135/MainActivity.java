@@ -20,13 +20,13 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         setContentView(R.layout.activity_main);
         tvLight = findViewById(R.id.lightSensor);
         tvProximity = findViewById(R.id.proximitySensor);
-       /* mSensorManager = (SensorManager)
+       mSensorManager = (SensorManager)
                 getSystemService(Context.SENSOR_SERVICE);
         sensorProximity =
                 mSensorManager.getDefaultSensor(Sensor.TYPE_PROXIMITY);
-        sensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);  */
+        sensorLight = mSensorManager.getDefaultSensor(Sensor.TYPE_LIGHT);
     }
-   /* @Override
+    @Override
     public void onSensorChanged(SensorEvent event) {
         int sensorType = event.sensor.getType();
         float currentValue = event.values[0];
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
         }
     }
-    @Override
+    /*@Override
     protected void onStart() {
         super.onStart();
         if (sensorProximity != null) {
