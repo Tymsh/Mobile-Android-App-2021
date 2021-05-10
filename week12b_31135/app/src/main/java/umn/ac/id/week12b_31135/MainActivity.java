@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
                 break;
         }
     }
-    /*@Override
+    @Override
     protected void onStart() {
         super.onStart();
         if (sensorProximity != null) {
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements SensorEventListen
         }
     }
 
-    @Override
+    /*@Override
     protected void onStop() {
         super.onStop();
         mSensorManager.unregisterListener(this);
