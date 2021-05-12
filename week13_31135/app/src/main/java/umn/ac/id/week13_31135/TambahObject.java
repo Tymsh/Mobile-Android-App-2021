@@ -202,4 +202,21 @@ public class TambahObject extends FragmentActivity
                                     .strokeColor(Color.BLUE)
                                     .strokeWidth(10.0f)
                                     .fillColor(Color.argb(20,0,255,255));
-                            
+                            for(int i = 0; i < titiks.size(); i++){
+                                mMap.addMarker(new MarkerOptions()
+                                        .position(titiks.get(i)));
+                                pg.add(titiks.get(i));
+                            }
+                            pg.add(titiks.get(0));
+                            mMap.addPolygon(pg);
+                            objMS = new MarkerDanShape("Polygon",
+                                    etKeterangan.getText().toString(),
+                                    0, titiks);
+                            btnSimpan.setEnabled(true);
+                        }
+                        break;
+                }
+            }
+        });
+    }
+}

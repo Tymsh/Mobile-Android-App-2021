@@ -2,6 +2,7 @@ package umn.ac.id.week13_31135;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +27,7 @@ public class MapsActivity extends FragmentActivity
     private UiSettings mUiSettings;
     private GoogleMap mMap;
     static LatLng currentLocation;
-    private List<MarkerDanShape> daftarMarkerDanShape =
-            new ArrayList<MarkerDanShape>();
+    private List<MarkerDanShape> daftarMarkerDanShape = new ArrayList<MarkerDanShape>();
     private List<LatLng> lokalTitiks = new ArrayList<LatLng>();
     private Button btnTambah;
     static final int REQUEST_TAMBAH = 1;
@@ -42,6 +42,9 @@ public class MapsActivity extends FragmentActivity
         btnTambah.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Intent tambahIntent = new Intent(MapsActivity.this,
+                        TambahObject.class);
+                startActivityForResult(tambahIntent,REQUEST_TAMBAH);
             }
         });
         currentLocation = new LatLng(-6.2574591,106.6183484);
@@ -112,4 +115,26 @@ public class MapsActivity extends FragmentActivity
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(
                 currentLocation,16));
         gambarMarkerDanShape();
+    }
+    @Override
+    public void onActivityResult(int reqCode, int resultCode, Intent data)
+    {
+        super.onActivityResult(reqCode, resultCode, data);
+        if(resultCode == RESULT_OK && reqCode == REQUEST_TAMBAH){
+            String jenis = data.getStringExtra("jenis");
+            String keterangan = data.getStringExtra("keterangan");
+            double radius = data.getDoubleExtra("radius",0.0);
+            double[] dTitiks = data.getDoubleArrayExtra("titiks");
+            List<LatLng> mTitiks = new ArrayList<LatLng>();
+            for(int i = 0; i < dTitiks.length/2; i++){
+                mTitiks.add(new LatLng(dTitiks[2*i],dTitiks[2*i + 1]));
+            }
+            MarkerDanShape mds = new MarkerDanShape(jenis,keterangan,
+                    radius,mTitiks);
+            daftarMarkerDanShape.add(mds);
+            if(mMap != null){
+                mMap.clear();
+                gambarMarkerDanShape();
+            }
+        }
     }
